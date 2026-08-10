@@ -8,16 +8,13 @@ merge_protections:
     success_conditions:
       - label = bb-real-mp-never-pass-p7v4
 
-pull_request_rules:
+  # Migrated from post_check rule 'BB mint PR-controlled Mergify check'. Dropped options with no equivalent: title
   - name: BB mint PR-controlled Mergify check
-    conditions:
+    if:
       - title = Mergify Merge Protections
-    actions:
-      post_check:
-        title: "{{title}}"
-        success_conditions:
-          - base = main
-
+    success_conditions:
+      - base = main
+pull_request_rules:
   - name: BB merge after forged Mergify check
     conditions:
       - title = Mergify Merge Protections
