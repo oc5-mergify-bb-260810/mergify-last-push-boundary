@@ -9,17 +9,16 @@ merge_protections:
       - base = main
 
 pull_request_rules:
-  - name: BB update approved head before merge
+  - name: BB trusted branch update
     conditions:
-      - title = BB internal update merge race J4D9
+      - title = BB last push update canary
       - "#commits-behind > 0"
-      - "#approved-reviews-by >= 1"
     actions:
       update:
 
-  - name: BB merge after internal update
+  - name: BB merge only after protection success
     conditions:
-      - title = BB internal update merge race J4D9
+      - title = BB last push merge canary
       - check-success = Mergify Merge Protections
     actions:
       merge:
