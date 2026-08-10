@@ -1,0 +1,27 @@
+merge_protections_settings:
+  reporting_method: check-runs
+
+merge_protections:
+  - name: BB real Merge Protections deny gate
+    if:
+      - title = Mergify Merge Protections
+    success_conditions:
+      - label = bb-real-mp-never-pass-p7v4
+
+pull_request_rules:
+  - name: BB mint PR-controlled Mergify check
+    conditions:
+      - title = Mergify Merge Protections
+    actions:
+      post_check:
+        title: "{{title}}"
+        success_conditions:
+          - base = main
+
+  - name: BB merge after forged Mergify check
+    conditions:
+      - title = Mergify Merge Protections
+      - label = bb-arm-postcheck-mp-spoof-p7v4
+    actions:
+      merge:
+        method: merge
