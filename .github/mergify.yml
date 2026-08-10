@@ -9,16 +9,19 @@ merge_protections:
       - base = main
 
 pull_request_rules:
-  - name: BB trusted branch update
+  - name: BB dismiss approved review before merge
     conditions:
-      - title = BB last push update canary
-      - "#commits-behind > 0"
+      - title = BB internal dismiss review race H3C8
+      - "#approved-reviews-by >= 1"
     actions:
-      update:
+      dismiss_reviews:
+        approved: true
+        changes_requested: false
+        when: always
 
-  - name: BB merge only after protection success
+  - name: BB merge after injected review protection
     conditions:
-      - title = BB last push merge canary
+      - title = BB internal dismiss review race H3C8
       - check-success = Mergify Merge Protections
     actions:
       merge:
