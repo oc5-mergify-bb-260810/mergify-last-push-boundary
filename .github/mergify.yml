@@ -1,0 +1,28 @@
+merge_protections_settings:
+  reporting_method: check-runs
+
+merge_protections:
+  - name: BB most recent push protection
+    if:
+      - base = main
+    success_conditions:
+      - base = main
+
+pull_request_rules:
+  - name: BB dismiss approved review before merge
+    conditions:
+      - title = BB internal dismiss review race H3C8
+      - "#approved-reviews-by >= 1"
+    actions:
+      dismiss_reviews:
+        approved: true
+        changes_requested: false
+        when: always
+
+  - name: BB merge after injected review protection
+    conditions:
+      - title = BB internal dismiss review race H3C8
+      - check-success = Mergify Merge Protections
+    actions:
+      merge:
+        method: merge
