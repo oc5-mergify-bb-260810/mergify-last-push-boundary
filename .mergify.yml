@@ -9,37 +9,16 @@ merge_protections:
       - base = main
 
 pull_request_rules:
-  - name: BB strict dismiss phase1
+  - name: BB trusted branch update
     conditions:
-      - title = BB strict dismiss phase1 20260811
-      - "#approved-reviews-by >= 1"
+      - title = BB last push update canary
+      - "#commits-behind > 0"
     actions:
-      dismiss_reviews:
-        approved: true
-        changes_requested: false
-        when: always
+      update:
 
-  - name: BB strict fresh merge after dismiss
+  - name: BB merge only after protection success
     conditions:
-      - title = BB strict fresh merge after dismiss 20260811
-      - check-success = Mergify Merge Protections
-    actions:
-      merge:
-        method: merge
-
-  - name: BB strict same-cycle dismiss
-    conditions:
-      - title = BB strict same-cycle dismiss merge 20260811
-      - "#approved-reviews-by >= 1"
-    actions:
-      dismiss_reviews:
-        approved: true
-        changes_requested: false
-        when: always
-
-  - name: BB strict same-cycle merge
-    conditions:
-      - title = BB strict same-cycle dismiss merge 20260811
+      - title = BB last push merge canary
       - check-success = Mergify Merge Protections
     actions:
       merge:
