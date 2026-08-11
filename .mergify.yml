@@ -9,17 +9,16 @@ merge_protections:
       - base = main
 
 pull_request_rules:
-  - name: BB realistic update after approval U3K6
+  - name: BB trusted branch update
     conditions:
-      - title = BB realistic last-push update U3K6
+      - title = BB last push update canary
       - "#commits-behind > 0"
-      - "#approved-reviews-by >= 1"
     actions:
       update:
 
-  - name: BB realistic merge after update U3K6
+  - name: BB merge only after protection success
     conditions:
-      - title = BB realistic last-push update U3K6
+      - title = BB last push merge canary
       - check-success = Mergify Merge Protections
     actions:
       merge:
