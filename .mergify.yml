@@ -23,20 +23,3 @@ pull_request_rules:
     actions:
       merge:
         method: merge
-
-
-  - name: BB secret team normal request
-    conditions:
-      - title = BB secret team normal request 20260811
-    actions:
-      request_reviews:
-        teams:
-          - h1lab-secret-review-20260811
-
-  - name: BB secret team member expansion
-    conditions:
-      - title = BB secret team member expansion 20260811
-    actions:
-      request_reviews:
-        users_from_teams:
-          - h1lab-secret-review-20260811
