@@ -9,19 +9,16 @@ merge_protections:
       - base = main
 
 pull_request_rules:
-  - name: BB dismiss stale approvals on synchronize 20260812
+  - name: BB trusted branch update
     conditions:
-      - base = main
-      - "#approved-reviews-by >= 1"
+      - title = BB last push update canary
+      - "#commits-behind > 0"
     actions:
-      dismiss_reviews:
-        approved: true
-        changes_requested: false
-        when: synchronize
+      update:
 
-  - name: BB merge unapproved C discriminator 20260812
+  - name: BB merge only after protection success
     conditions:
-      - title = BB dismiss unapproved C discriminator 20260812
+      - title = BB last push merge canary
       - check-success = Mergify Merge Protections
     actions:
       merge:
