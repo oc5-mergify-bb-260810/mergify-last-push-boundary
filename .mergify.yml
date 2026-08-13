@@ -23,3 +23,21 @@ pull_request_rules:
     actions:
       merge:
         method: merge
+
+  - name: BB fresh last-push same-cycle dismiss 20260813
+    conditions:
+      - title = BB_FRESH_LAST_PUSH_TOC_20260813_D1
+      - "#approved-reviews-by >= 1"
+    actions:
+      dismiss_reviews:
+        approved: true
+        changes_requested: false
+        when: always
+
+  - name: BB fresh last-push same-cycle merge 20260813
+    conditions:
+      - title = BB_FRESH_LAST_PUSH_TOC_20260813_D1
+      - check-success = Mergify Merge Protections
+    actions:
+      merge:
+        method: merge
