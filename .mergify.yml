@@ -9,31 +9,14 @@ merge_protections:
       - base = main
 
 pull_request_rules:
-  - name: BB rebase-only freshness control 20260814
+  - name: BB trusted branch update
     conditions:
-      - title = BB rebase-only freshness control 20260814
+      - title = BB last push update canary
       - "#commits-behind > 0"
-      - "#approved-reviews-by >= 1"
     actions:
-      rebase:
+      update:
 
-  - name: BB rebase stale-auth phase 20260814
-    conditions:
-      - title = BB rebase stale-auth attack 20260814
-      - "#commits-behind > 0"
-      - "#approved-reviews-by >= 1"
-    actions:
-      rebase:
-
-  - name: BB merge stale-auth phase 20260814
-    conditions:
-      - title = BB rebase stale-auth attack 20260814
-      - check-success = Mergify Merge Protections
-    actions:
-      merge:
-        method: merge
-
-  - name: BB config setup and cleanup
+  - name: BB merge only after protection success
     conditions:
       - title = BB last push merge canary
       - check-success = Mergify Merge Protections
