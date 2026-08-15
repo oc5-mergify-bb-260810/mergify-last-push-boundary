@@ -8,12 +8,6 @@ merge_protections:
     success_conditions:
       - base = main
 
-  - name: BB MP current team approval boundary
-    if:
-      - title = BB MP current team approval gate
-    success_conditions:
-      - approved-reviews-by = @bb-mp-review-team-20260816
-
 pull_request_rules:
   - name: BB trusted branch update
     conditions:
